@@ -65,7 +65,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20.19.x'
+        node-version: '24.14.x'
         registry-url: 'https://registry.npmjs.org'
         cache: 'npm'
 
@@ -92,7 +92,7 @@ jobs:
 
     - name: Publish to npm
       if: steps.check-version.outputs.should-publish == 'true'
-      run: npm publish --workspace=packages/script --provenance --access public
+      run: npm publish
 
     - name: Create GitHub Release
       if: steps.check-version.outputs.should-publish == 'true'
