@@ -5,7 +5,12 @@
 
 <main>
   <nav>
-    <h1><a href="{base}/">Simple NPS</a></h1>
+    <h1>
+      <a href="{base}/">
+        <img src="{base}/logo.svg" alt="Simple NPS" class="logo" />
+        Simple NPS
+      </a>
+    </h1>
     <ul>
       <li><a href="{base}/" class:active={$page.url.pathname === base + '/'}>Home</a></li>
       <li><a href="{base}/demo" class:active={$page.url.pathname === base + '/demo'}>Demo</a></li>
@@ -39,6 +44,14 @@
   nav h1 a {
     text-decoration: none;
     color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo {
+    width: 32px;
+    height: 32px;
   }
 
   nav ul {
