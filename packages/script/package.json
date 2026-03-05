@@ -1,6 +1,6 @@
 {
   "name": "simple-nps",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple NPS (Net Promoter Score), sending data to your own Google Analytics",
   "type": "module",
   "main": "dist/simple-nps.iife.js",
