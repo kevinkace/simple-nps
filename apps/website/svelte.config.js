@@ -14,7 +14,14 @@ const config = {
       base: process.argv.includes('dev') ? '' : process.env.BASE_PATH || ''
     },
     prerender: {
-      entries: ['*']
+      handleHttpError: ({ path, referrer, message }) => {
+        // Handle 404s during prerender when using base path
+        if (message.includes('does not begin with `base`')) {
+          console.warn(`Prerender warning: ${message}`);
+          return;
+        }
+        throw new Error(message);
+      }
     }
   }
 };
