@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple NPS Test</title>
+</head>
+<body>
+    <h1>Simple NPS Test Page</h1>
+    <p>Click the button below to show the NPS:</p>
+    <button onclick="showNPS()">Show NPS</button>
+
+    <!-- Configure the NPS -->
+    <script>
+    window.simpleNpsConfig = {
+        gaId: "G-XXXXXXXXXX", // Optional
+        i18n: {
+            en: {
+                intro: "How likely are you to recommend our service?",
+                notLikely: "Not at all likely",
+                extremelyLikely: "Extremely likely",
+                submitBtn: "Submit",
+                thankYou: "Thank you for your feedback!",
+                followUp: "What could we improve?"
+            }
+        },
+        language: 'en'
+    };
+    </script>
+
+    <!-- Include the NPS script -->
+    <script src="./dist/simple-nps.iife.js"></script>
+
+    <!-- Test script functionality -->
+    <script>
+    console.log('Script loaded. Checking availability...');
+    console.log('window.initSimpleNps:', typeof window.initSimpleNps);
+
+    function showNPS() {
+        console.log('Attempting to initialize NPS...');
+        if (typeof window.initSimpleNps === 'function') {
+            try {
+                const result = window.initSimpleNps();
+                console.log('NPS initialized successfully:', result);
+            } catch (error) {
+                console.error('Error initializing NPS:', error);
+            }
+        } else {
+            console.error('initSimpleNps function not found on window object');
+        }
+    }
+
+    // Try auto-initialization after 2 seconds to test
+    setTimeout(() => {
+        console.log('Auto-testing NPS initialization...');
+        showNPS();
+    }, 2000);
+    </script>
+</body>
+</html>

@@ -7,9 +7,7 @@ export default defineConfig({
     svelte({
       compilerOptions: {
         css: 'injected',
-        dev: false,
-        hydratable: false,
-        legacy: false
+        dev: false
       }
     })
   ],
@@ -17,7 +15,7 @@ export default defineConfig({
     outDir: 'dist',
     lib: {
       entry: 'src/main.js',
-      name: 'SimpleNPS',
+      name: 'initSimpleNps',
       fileName: 'simple-nps',
       formats: ['iife']
     },
@@ -25,6 +23,7 @@ export default defineConfig({
       output: {
         inlineDynamicImports: true,
         manualChunks: undefined,
+        exports: 'default'
       },
       treeshake: 'smallest'
     },

@@ -76,7 +76,7 @@
   }
 </script>
 
-<div class="nps" style="--primary-color: {mergedConfig.theme.primaryColor}; --bg-color: {mergedConfig.theme.backgroundColor}; --text-color: {mergedConfig.theme.textColor}; --border-radius: {mergedConfig.theme.borderRadius}">
+<div class="simple-nps" style="--primary-color: {mergedConfig.theme.primaryColor}; --bg-color: {mergedConfig.theme.backgroundColor}; --text-color: {mergedConfig.theme.textColor}; --border-radius: {mergedConfig.theme.borderRadius}">
   {#if !isSubmitted && !showFollowUp}
     <div class="nps-content">
       <h3 class="nps-question">{strings.intro}</h3>
@@ -124,7 +124,7 @@
 </div>
 
 <style>
-  .nps {
+  .simple-nps {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     position: fixed;
     bottom: 20px;
@@ -251,7 +251,7 @@
   }
 
   @media (max-width: 480px) {
-    .nps {
+    .simple-nps {
       top: 10px;
       right: 10px;
       left: 10px;
