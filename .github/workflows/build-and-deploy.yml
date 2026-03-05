@@ -36,9 +36,7 @@ jobs:
     - name: Build script package
       run: npm run build:script
 
-    - name: Build website for GitHub Pages
-      env:
-        BASE_PATH: /simple-nps
+    - name: Build website for custom domain
       run: npm run build:website
 
     - name: Copy script to website build
