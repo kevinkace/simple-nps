@@ -7,8 +7,9 @@
 </head>
 <body>
     <h1>Simple NPS Test Page</h1>
-    <p>Click the button below to show the NPS:</p>
-    <button onclick="showNPS()">Show NPS</button>
+    <p>The NPS widget should appear automatically when the script loads.</p>
+    <p>You can also manually reinitialize it by clicking the button below:</p>
+    <button onclick="showNPS()">Reinitialize NPS</button>
 
     <!-- Configure the NPS -->
     <script>
@@ -33,26 +34,17 @@
 
     <!-- Test script functionality -->
     <script>
-    console.log('Script loaded. Checking availability...');
+    console.log('Script loaded. NPS should auto-initialize...');
     console.log('window.initSimpleNps:', typeof window.initSimpleNps);
 
     function showNPS() {
-        console.log('Attempting to initialize NPS...');
+        console.log('Manually reinitializing NPS...');
         if (typeof window.initSimpleNps === 'function') {
             try {
                 const result = window.initSimpleNps();
-                console.log('NPS initialized successfully:', result);
+                console.log('NPS reinitialized successfully:', result);
             } catch (error) {
-                console.error('Error initializing NPS:', error);
-            }
-        } else {
-            console.error('initSimpleNps function not found on window object');
-        }
-    }
-
-    // Try auto-initialization after 2 seconds to test
-    setTimeout(() => {
-        console.log('Auto-testing NPS initialization...');
+                console.error('Error reinitializing NPS:', error);
         showNPS();
     }, 2000);
     </script>

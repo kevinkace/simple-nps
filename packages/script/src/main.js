@@ -25,10 +25,7 @@ function initSimpleNps() {
   return app;
 }
 
-// Ensure the function is available globally
-if (typeof window !== 'undefined') {
-  window.initSimpleNps = initSimpleNps;
-}
+initSimpleNps();
 
 // Export default for IIFE
 export default initSimpleNps;
