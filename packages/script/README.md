@@ -23,7 +23,7 @@ window.simpleNpsConfig = {
 ```
 2. load from CDN
 ```html
-<script src="https://cdn.jsdeliver.net/npm/simple-nps@1.0.0/dist/simple-nps.js">
+<script src="https://cdn.jsdeliver.net/npm/simple-nps@0.0.2/dist/simple-nps.js">
 ```
 
 ## Customization
