@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Simple NPS - Lightweight Net Promoter Score Script for GTM</title>
+  <title>Simple NPS - Lightweight Net Promoter Score</title>
   <meta name="description" content="A lightweight, configurable Net Promoter Score (NPS) built with Svelte that compiles to a single JavaScript file. Data is sent to your own Google Analytics account." />
 </svelte:head>
 
@@ -56,7 +56,7 @@ window.simpleNpsConfig = {
 </script>`}</code></pre>
 
   <h3>2. Load from CDN</h3>
-  <pre><code>{`<script src="https://cdn.jsdelivr.net/npm/simple-nps@1.0.0/dist/simple-nps.js"></script>`}</code></pre>
+  <pre><code>{`<script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.2/dist/simple-nps.js"></script>`}</code></pre>
 </section>
 
 <section class="customization">

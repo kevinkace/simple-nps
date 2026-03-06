@@ -15,7 +15,7 @@
       <li><a href="#analytics">Analytics Integration</a></li>
       <li><a href="#customization">Customization</a></li>
       <li><a href="#api">API Reference</a></li>
-      <li><a href="#gtm-integration">GTM Integration</a></li>
+      <li><a href="#gtm-integration">Easy to use with Google Tag Manager</a></li>
     </ul>
   </nav>
 
@@ -39,8 +39,7 @@ npm run build</code></pre>
 
     <p>Configure the script by setting <code>window.simpleNpsConfig</code> before calling <code>initSimpleNps()</code>:</p>
 
-    <pre><code>{`window.simpleNpsConfig = {
-  // Google Analytics 4 Measurement ID (optional)
+    <pre><code>{`window.simpleNpsConfig = {// Google Analytics 4 Measurement ID (optional)
   gaId: "G-YOUR-MEASUREMENT-ID",
 
   // Internationalization settings
@@ -137,8 +136,6 @@ gtag('event', 'nps_score_selected', {
   'custom_parameter_1': 'value'
 });`}</code></pre>
 
-    <h3>No GA Script Loading</h3>
-    <p>The script does <strong>not</strong> load Google Analytics itself. This makes it perfect for GTM integration where analytics is already handled.</p>
   </section>
 
   <section id="customization">

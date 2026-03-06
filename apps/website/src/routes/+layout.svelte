@@ -1,6 +1,22 @@
 <script>
   import { page } from '$app/stores';
+  import GdprNotification from '$lib/components/GdprNotification.svelte';
+  import GTMLoader from '$lib/components/GTMLoader.svelte';
+
+  const GTM_ID = 'GTM-T496R6FP';
+
+  const navItems = [
+    { href: '/', label: 'Home', path: '/' },
+    { href: '/demo', label: 'Demo', path: '/demo' },
+    { href: '/docs', label: 'Documentation', path: '/docs' },
+    { href: '/legal', label: 'Privacy & Legal', path: '/legal' }
+  ];
 </script>
+
+<svelte:head>
+  <title>Simple NPS</title>
+  <meta name="description" content="Simple NPS - Lightweight Net Promoter Score Script" />
+</svelte:head>
 
 <main>
   <nav>
@@ -11,13 +27,17 @@
       </a>
     </h1>
     <ul>
-      <li><a href="/" class:active={$page.url.pathname === base + '/'}>Home</a></li>
-      <li><a href="/demo" class:active={$page.url.pathname === base + '/demo'}>Demo</a></li>
-      <li><a href="/docs" class:active={$page.url.pathname === base + '/docs'}>Documentation</a></li>
+      {#each navItems as item}
+        <li><a href={item.href} class:active={$page.url.pathname === item.path}>{item.label}</a></li>
+      {/each}
     </ul>
   </nav>
   <slot />
 </main>
+
+<GTMLoader gtmId={GTM_ID} />
+
+<GdprNotification />
 
 <style>
   main {
