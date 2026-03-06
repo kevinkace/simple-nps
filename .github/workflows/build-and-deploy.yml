@@ -92,6 +92,9 @@ jobs:
 
     - name: Publish to npm
       if: steps.check-version.outputs.should-publish == 'true'
+      working-directory: ./packages/script
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: npm publish
 
     - name: Create GitHub Release
