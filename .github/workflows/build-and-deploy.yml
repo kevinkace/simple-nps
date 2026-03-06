@@ -55,7 +55,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
 
     steps:
@@ -99,12 +99,10 @@ jobs:
 
     - name: Create GitHub Release
       if: steps.check-version.outputs.should-publish == 'true'
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ steps.check-version.outputs.current-version }}
-        release_name: Release v${{ steps.check-version.outputs.current-version }}
+        name: Release v${{ steps.check-version.outputs.current-version }}
         body: |
           ## Changes
           - Published simple-nps v${{ steps.check-version.outputs.current-version }} to npm
