@@ -1,20 +1,19 @@
 <script>
   import { page } from '$app/stores';
-  import { base } from '$app/paths';
 </script>
 
 <main>
   <nav>
     <h1>
-      <a href="{base}/">
-        <img src="{base}/logo.svg" alt="Simple NPS" class="logo" />
+      <a href="/">
+        <img src="/logo.svg" alt="Simple NPS" class="logo" />
         Simple NPS
       </a>
     </h1>
     <ul>
-      <li><a href="{base}/" class:active={$page.url.pathname === base + '/'}>Home</a></li>
-      <li><a href="{base}/demo" class:active={$page.url.pathname === base + '/demo'}>Demo</a></li>
-      <li><a href="{base}/docs" class:active={$page.url.pathname === base + '/docs'}>Documentation</a></li>
+      <li><a href="/" class:active={$page.url.pathname === base + '/'}>Home</a></li>
+      <li><a href="/demo" class:active={$page.url.pathname === base + '/demo'}>Demo</a></li>
+      <li><a href="/docs" class:active={$page.url.pathname === base + '/docs'}>Documentation</a></li>
     </ul>
   </nav>
   <slot />
@@ -70,8 +69,7 @@
     transition: background-color 0.2s;
   }
 
-  nav a:hover,
-  nav a.active {
+  nav a:hover {
     background-color: #f0f0f0;
     color: #333;
   }
