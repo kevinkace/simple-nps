@@ -1,4 +1,5 @@
 <script>
+  import '../app.css';
   import { page } from '$app/stores';
   import GdprNotification from '$lib/components/GdprNotification.svelte';
   import GTMLoader from '$lib/components/GTMLoader.svelte';
@@ -6,11 +7,20 @@
   const GTM_ID = 'GTM-T496R6FP';
 
   const navItems = [
-    { href: '/', label: 'Home', path: '/' },
     { href: '/demo', label: 'Demo', path: '/demo' },
     { href: '/docs', label: 'Documentation', path: '/docs' },
     { href: '/legal', label: 'Privacy & Legal', path: '/legal' }
   ];
+
+  let isMenuOpen = false;
+
+  $: if ($page.url.pathname) {
+    isMenuOpen = false;
+  }
+
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+  }
 </script>
 
 <svelte:head>
@@ -18,21 +28,40 @@
   <meta name="description" content="Simple NPS - Lightweight Net Promoter Score Script" />
 </svelte:head>
 
-<main>
-  <nav>
+<div>
+  <nav class="fixed">
     <h1>
       <a href="/">
         <img src="/logo.svg" alt="Simple NPS" class="logo" />
         Simple NPS
       </a>
     </h1>
-    <ul>
+
+    <button
+      class="hamburger"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-controls="site-nav"
+      aria-expanded={isMenuOpen}
+      on:click={toggleMenu}
+    >
+      <span class:open={isMenuOpen}></span>
+      <span class:open={isMenuOpen}></span>
+      <span class:open={isMenuOpen}></span>
+    </button>
+
+    <ul id="site-nav" class:open={isMenuOpen}>
       {#each navItems as item}
         <li><a href={item.href} class:active={$page.url.pathname === item.path}>{item.label}</a></li>
       {/each}
     </ul>
   </nav>
-  <slot />
+</div>
+
+<main>
+  <div class="fixed">
+    <slot />
+  </div>
 </main>
 
 <GTMLoader gtmId={GTM_ID} />
@@ -41,10 +70,16 @@
 
 <style>
   main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
+    flex: 1;
   }
+
+  .fixed {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+
 
   nav {
     display: flex;
@@ -57,6 +92,7 @@
 
   nav h1 {
     margin: 0;
+    z-index: 2;
   }
 
   nav h1 a {
@@ -70,6 +106,30 @@
   .logo {
     width: 32px;
     height: 32px;
+  }
+
+  .hamburger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 2;
+  }
+
+  .hamburger span {
+    width: 18px;
+    height: 2px;
+    background: #333;
+    border-radius: 999px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
   nav ul {
@@ -91,5 +151,53 @@
   nav a:hover {
     background-color: #f0f0f0;
     color: #333;
+  }
+
+  @media (max-width: 760px) {
+    nav {
+      position: relative;
+      align-items: flex-start;
+    }
+
+    .hamburger {
+      display: inline-flex;
+    }
+
+    nav ul {
+      position: absolute;
+      top: calc(100% + 0.75rem);
+      right: 0;
+      left: 0;
+      display: none;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 0.75rem;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      z-index: 1;
+    }
+
+    nav ul.open {
+      display: flex;
+    }
+
+    nav a {
+      display: block;
+      padding: 0.6rem 0.75rem;
+    }
+
+    .hamburger span.open:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger span.open:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger span.open:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
   }
 </style>
