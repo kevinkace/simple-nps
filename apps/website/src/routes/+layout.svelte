@@ -156,7 +156,6 @@
   @media (max-width: 760px) {
     nav {
       position: relative;
-      align-items: flex-start;
     }
 
     .hamburger {
