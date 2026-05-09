@@ -157,6 +157,7 @@
     margin-bottom: 12px;
     flex-wrap: nowrap;
     overflow-x: auto;
+    padding: 0.1em 0;
   }
 
   .score-button {
