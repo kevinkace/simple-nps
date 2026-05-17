@@ -69,22 +69,31 @@ window.simpleNpsConfig = {
   gaId: "G-XXXXXXXXXX",
   i18n: {
     en: {
-      intro: "How likely are you to recommend us?",
+      intro: "How likely are you to recommend us to a friend or colleague?",
       notLikely: "Not at all likely",
       extremelyLikely: "Extremely likely",
       submitBtn: "Submit",
+
       thankYou: "Thank you for your feedback!",
-      followUp: "Could you tell us why?"
+
+      followUp: "Could you tell us why?",
+      followUpPlaceholder: "Your feedback helps us improve...",
+      followUpSubmit: "Submit feedback",
+      followUpSkip: "Skip",
+
+      close: "Close"
     }
   },
-  language: "en",
+  language: 'en',
   theme: {
-    primaryColor: "#007bff",
-    backgroundColor: "#ffffff",
-    textColor: "#333333",
-    borderRadius: "8px"
+    primaryColor: '#007bff',
+    backgroundColor: '#ffffff',
+    textColor: '#333333',
+    borderRadius: '8px'
   },
-  showFollowUp: true
+  showFollowUp: true,
+  delay : 1000,
+  thankYouDuration: 1500
 };
 </script>`}</code></pre>
 
@@ -215,7 +224,7 @@ npm run dev</code></pre>
   }
 
   section:not(.hero) {
-    border-top: 1px solid #eee;
+    border-top: 1px solid #c0c0c0;
   }
 
   h2 {

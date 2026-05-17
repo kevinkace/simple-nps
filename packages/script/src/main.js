@@ -8,10 +8,15 @@ function initSimpleNps() {
 
   // Find or create target element
   let target = document.getElementById('simple-nps');
+
   if (!target) {
     target = document.createElement('div');
     target.id = 'simple-nps';
     document.body.appendChild(target);
+  }
+
+  if (target.dataset.mounted) {
+    return;
   }
 
   // Mount the Svelte app
@@ -21,6 +26,8 @@ function initSimpleNps() {
       config
     }
   });
+
+  target.dataset.mounted = 'true';
 
   return app;
 }
