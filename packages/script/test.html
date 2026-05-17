@@ -13,20 +13,7 @@
 
     <!-- Configure the NPS -->
     <script>
-    window.simpleNpsConfig = {
-        gaId: "G-XXXXXXXXXX", // Optional
-        i18n: {
-            en: {
-                intro: "How likely are you to recommend our service?",
-                notLikely: "Not at all likely",
-                extremelyLikely: "Extremely likely",
-                submitBtn: "Submit",
-                thankYou: "Thank you for your feedback!",
-                followUp: "What could we improve?"
-            }
-        },
-        language: 'en'
-    };
+    window.simpleNpsConfig = { gaId: "G-XXXXXXXXXX" };
     </script>
 
     <!-- Include the NPS script -->
@@ -39,14 +26,18 @@
 
     function showNPS() {
         console.log('Manually reinitializing NPS...');
-        if (typeof window.initSimpleNps === 'function') {
-            try {
-                const result = window.initSimpleNps();
-                console.log('NPS reinitialized successfully:', result);
-            } catch (error) {
-                console.error('Error reinitializing NPS:', error);
-        showNPS();
-    }, 2000);
+        if (typeof window.initSimpleNps !== 'function') {
+            console.error('initSimpleNps is not available on window');
+            return;
+        }
+
+        try {
+            const result = window.initSimpleNps();
+            console.log('NPS reinitialized successfully:', result);
+        } catch (error) {
+            console.error('Error reinitializing NPS:', error);
+        }
+    }
     </script>
 </body>
 </html>

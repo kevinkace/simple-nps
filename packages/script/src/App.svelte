@@ -133,10 +133,12 @@
     <button
       class="nps-close-btn"
       aria-label={strings.close}
+      data-testid="close-btn"
       onclick={() => formState = "done"}
     >
       &times;
     </button>
+
     {#if formState === "form"}
       <div class="nps-content">
         <h3 class="nps-question">
@@ -149,6 +151,8 @@
               class="nps-score-button"
               class:nps-score-selected={selectedScore === i}
               data-score-category={getScoreCategory(i)}
+              data-score={i}
+              data-testid={`score-${i}`}
               onclick={() => selectScore(i)}
             >
               {i}
@@ -169,6 +173,7 @@
           <button
             class="nps-submit-btn"
             onclick={submitScore}
+            data-testid="submit-score-btn"
           >
             {strings.submitBtn}
           </button>
@@ -189,11 +194,13 @@
           class="nps-follow-up-textarea"
           placeholder={strings.followUpPlaceholder}
           rows="3"
+          data-testid="follow-up-textarea"
         ></textarea>
 
         <button
           class="nps-submit-btn"
           type="submit"
+          data-testid="follow-up-submit-btn"
           onclick={submitFollowUp}
         >
           {strings.followUpSubmit}

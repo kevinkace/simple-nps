@@ -8,7 +8,7 @@
   <title>Demo - Simple NPS</title>
   <meta name="description" content="Interactive demo of Simple NPS" />
 
-  <script src="https://unpkg.com/simple-nps@0.0.2/dist/simple-nps.iife.js" defer></script>
+  <script src="/dist/simple-nps.iife.js" defer></script>
 </svelte:head>
 
   <h1>Simple NPSDemo</h1>

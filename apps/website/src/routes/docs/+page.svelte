@@ -407,7 +407,8 @@ initSimpleNps();
     border-bottom: none;
   }
 
-  ul, ol {
+  ul,
+  ol {
     margin: 1rem 0;
     padding-left: 2rem;
   }
