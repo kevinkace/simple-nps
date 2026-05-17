@@ -1,7 +1,12 @@
-<script>
-  export let config = {};
+<script lang="ts">
+  import { fade } from 'svelte/transition';
 
-  // Default configuration
+  const { gtag } = window as any;
+
+  const { config : userConfig } = $props();
+
+  type FormState = 'pre' | 'form' | 'follow-up' | 'thank-you' | 'done';
+
   const defaultConfig = {
     gaId: null,
     i18n: {
@@ -10,8 +15,15 @@
         notLikely: "Not at all likely",
         extremelyLikely: "Extremely likely",
         submitBtn: "Submit",
+
         thankYou: "Thank you for your feedback!",
-        followUp: "Could you tell us why?"
+
+        followUp: "Could you tell us why?",
+        followUpPlaceholder: "Your feedback helps us improve...",
+        followUpSubmit: "Submit feedback",
+        followUpSkip: "Skip",
+
+        close: "Close"
       }
     },
     language: 'en',
@@ -21,107 +33,189 @@
       textColor: '#333333',
       borderRadius: '8px'
     },
-    showFollowUp: true
+    showFollowUp: true,
+    delay : 1000,
+    thankYouDuration: 1500
   };
 
-  // Merge user config with defaults
-  const mergedConfig = { ...defaultConfig, ...config };
-  const strings = mergedConfig.i18n[mergedConfig.language] || mergedConfig.i18n.en;
+  // svelte-ignore state_referenced_locally
+  const config = { ...defaultConfig, ...userConfig };
+  const strings = config.i18n[config.language] || config.i18n.en;
 
-  let selectedScore = null;
-  let isSubmitted = false;
-  let showFollowUp = false;
-  let followUpText = '';
+  let selectedScore = $state<number | null>(null);
+  let formState = $state<FormState>("pre");
 
-  function selectScore(score) {
+  let followUpText = $state('');
+
+  // #region Event Handlers
+
+  function selectScore(score : number) {
     selectedScore = score;
   }
 
+  /**
+   * Submit NPS score to Google Analytics and show follow-up question if enabled
+   */
   function submitScore() {
     if (selectedScore === null) return;
 
     // Google Analytics tracking
-    if (mergedConfig.gaId && window.gtag) {
-      window.gtag('event', 'nps_score', {
+    if (config.gaId && gtag) {
+      gtag('event', 'nps_score', {
         'event_category': 'NPS',
         'event_label': 'Score',
         'value': selectedScore
       });
     }
 
-    if (mergedConfig.showFollowUp) {
-      showFollowUp = true;
+    if (config.showFollowUp) {
+      formState = "follow-up";
     } else {
-      isSubmitted = true;
+      formState = "thank-you";
     }
   }
 
+  /**
+   * Submit follow-up feedback to Google Analytics and mark survey as submitted
+   */
   function submitFollowUp() {
-    // Google Analytics tracking for follow-up
-    if (mergedConfig.gaId && window.gtag && followUpText.trim()) {
-      window.gtag('event', 'nps_feedback', {
+    if (config.gaId && gtag && followUpText.trim()) {
+      gtag('event', 'nps_feedback', {
         'event_category': 'NPS',
         'event_label': 'Feedback',
         'custom_parameter': followUpText.substring(0, 100) // Limit feedback length
       });
     }
 
-    isSubmitted = true;
+    formState = "thank-you";
   }
 
-  function getScoreCategory(score) {
+  function skipFollowUp() {
+    formState = "thank-you";
+  }
+
+  /**
+   * Get score category for styling (detractor, passive, promoter)
+   */
+  function getScoreCategory(score: number) {
     if (score <= 6) return 'detractor';
     if (score <= 8) return 'passive';
     return 'promoter';
   }
+
+  // #endregion
+
+  // remove after showing thank you message
+  $effect(() => {
+    if (formState === "thank-you") {
+      setTimeout(() => {
+        formState = "done";
+      }, config.thankYouDuration);
+    }
+  });
+
+  // delay before showing the NPS survey
+  setTimeout(() => {
+    formState = "form";
+  }, config.delay);
+
 </script>
 
-<div class="simple-nps" style="--primary-color: {mergedConfig.theme.primaryColor}; --bg-color: {mergedConfig.theme.backgroundColor}; --text-color: {mergedConfig.theme.textColor}; --border-radius: {mergedConfig.theme.borderRadius}">
-  {#if !isSubmitted && !showFollowUp}
-    <div class="nps-content">
-      <h3 class="nps-question">{strings.intro}</h3>
+{#if formState !== "pre" && formState !== "done"}
+  <div
+    class="simple-nps"
+    style:--primary-color={config.theme.primaryColor}
+    style:--bg-color={config.theme.backgroundColor}
+    style:--text-color={config.theme.textColor}
+    style:--border-radius={config.theme.borderRadius}
+    transition:fade={{ duration: 300 }}
+  >
+    <button
+      class="nps-close-btn"
+      aria-label={strings.close}
+      onclick={() => formState = "done"}
+    >
+      &times;
+    </button>
+    {#if formState === "form"}
+      <div class="nps-content">
+        <h3 class="nps-question">
+          {strings.intro}
+        </h3>
 
-      <div class="score-scale">
-        {#each Array(11) as _, i}
+        <div class="nps-score-scale">
+          {#each Array(11) as _, i}
+            <button
+              class="nps-score-button"
+              class:nps-score-selected={selectedScore === i}
+              data-score-category={getScoreCategory(i)}
+              onclick={() => selectScore(i)}
+            >
+              {i}
+            </button>
+          {/each}
+        </div>
+
+        <div class="nps-scale-labels">
+          <span class="nps-scale-label">
+            {strings.notLikely}
+          </span>
+          <span class="nps-scale-label">
+            {strings.extremelyLikely}
+          </span>
+        </div>
+
+        {#if selectedScore !== null}
           <button
-            class="score-button {selectedScore === i ? 'selected' : ''} {selectedScore === i ? getScoreCategory(i) : ''}"
-            on:click={() => selectScore(i)}
+            class="nps-submit-btn"
+            onclick={submitScore}
           >
-            {i}
+            {strings.submitBtn}
           </button>
-        {/each}
+        {/if}
       </div>
+    {:else if formState === "follow-up"}
+      <div
+        class="nps-content"
+        data-testid="follow-up"
+      >
+        <h3 class="nps-question">
+          {strings.followUp}
+        </h3>
 
-      <div class="scale-labels">
-        <span class="scale-label">{strings.notLikely}</span>
-        <span class="scale-label">{strings.extremelyLikely}</span>
-      </div>
+        <textarea
+          id="nps-follow-up-textarea"
+          bind:value={followUpText}
+          class="nps-follow-up-textarea"
+          placeholder={strings.followUpPlaceholder}
+          rows="3"
+        ></textarea>
 
-      {#if selectedScore !== null}
-        <button class="submit-btn" on:click={submitScore}>
-          {strings.submitBtn}
+        <button
+          class="nps-submit-btn"
+          type="submit"
+          onclick={submitFollowUp}
+        >
+          {strings.followUpSubmit}
         </button>
-      {/if}
-    </div>
-  {:else if showFollowUp}
-    <div class="nps-content">
-      <h3 class="nps-question">{strings.followUp}</h3>
-      <textarea
-        bind:value={followUpText}
-        class="follow-up-textarea"
-        placeholder="Your feedback helps us improve..."
-        rows="3"
-      ></textarea>
-      <button class="submit-btn" on:click={submitFollowUp}>
-        {strings.submitBtn}
-      </button>
-    </div>
-  {:else}
-    <div class="nps-content thank-you">
-      <h3 class="nps-question">{strings.thankYou}</h3>
-    </div>
-  {/if}
-</div>
+
+        <button
+          class="nps-submit-btn"
+          type="button"
+          onclick={skipFollowUp}
+        >
+          {strings.followUpSkip}
+        </button>
+      </div>
+    {:else if formState === "thank-you"}
+      <div class="nps-content nps-thank-you">
+        <h3 class="nps-question">
+          {strings.thankYou}
+        </h3>
+      </div>
+    {/if}
+  </div>
+{/if}
 
 <style>
   .simple-nps {
@@ -137,6 +231,38 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     color: var(--text-color);
     z-index: 9999;
+
+    min-width: 20em;
+  }
+
+  .nps-close-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 1em;
+    aspect-ratio: 1;
+
+    font-size: 25px;
+    color: var(--text-color);
+    line-height: 1;
+
+    background: transparent;
+
+    border: none;
+    border-radius: 16%;
+
+    cursor: pointer;
+
+    &:hover {
+      background: var(--primary-color);
+      color: white;
+    }
   }
 
   .nps-content {
@@ -150,7 +276,7 @@
     line-height: 1.4;
   }
 
-  .score-scale {
+  .nps-score-scale {
     display: flex;
     justify-content: space-between;
     gap: 4px;
@@ -160,7 +286,7 @@
     padding: 0.1em 0;
   }
 
-  .score-button {
+  .nps-score-button {
     width: 32px;
     height: 32px;
     border: 2px solid #d1d5db;
@@ -173,48 +299,47 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-1px);
+    }
+
+    &.nps-score-selected {
+      border-color: var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+
+      &[data-score-category="detractor"] {
+        background: #ef4444;
+        border-color: #ef4444;
+      }
+
+      &[data-score-category="passive"] {
+        background: #f59e0b;
+        border-color: #f59e0b;
+      }
+
+      &[data-score-category="promoter"] {
+        background: #10b981;
+        border-color: #10b981;
+      }
+    }
   }
 
-  .score-button:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-1px);
-  }
-
-  .score-button.selected {
-    border-color: var(--primary-color);
-    background: var(--primary-color);
-    color: white;
-  }
-
-  .score-button.selected.detractor {
-    background: #ef4444;
-    border-color: #ef4444;
-  }
-
-  .score-button.selected.passive {
-    background: #f59e0b;
-    border-color: #f59e0b;
-  }
-
-  .score-button.selected.promoter {
-    background: #10b981;
-    border-color: #10b981;
-  }
-
-  .scale-labels {
+  .nps-scale-labels {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
     color: #6b7280;
-    margin-bottom: 20px;
   }
 
-  .scale-label {
+  .nps-scale-label {
     max-width: 80px;
     text-align: center;
   }
 
-  .submit-btn {
+  .nps-submit-btn {
     background: var(--primary-color);
     color: white;
     border: none;
@@ -224,13 +349,13 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 
-  .submit-btn:hover {
-    opacity: 0.9;
-  }
-
-  .follow-up-textarea {
+  .nps-follow-up-textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #d1d5db;
@@ -240,14 +365,15 @@
     resize: vertical;
     min-height: 80px;
     box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
   }
 
-  .follow-up-textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-  }
 
-  .thank-you {
+  .nps-thank-you {
     padding: 20px 0;
   }
 
@@ -260,22 +386,22 @@
       padding: 16px;
     }
 
-    .score-scale {
+    .nps-score-scale {
       gap: 2px;
     }
 
-    .score-button {
+    .nps-score-button {
       width: 28px;
       height: 28px;
       font-size: 12px;
       flex-shrink: 0;
     }
 
-    .scale-labels {
+    .nps-scale-labels {
       font-size: 11px;
     }
 
-    .scale-label {
+    .nps-scale-label {
       max-width: 60px;
     }
   }
