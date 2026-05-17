@@ -224,7 +224,7 @@ npm run dev</code></pre>
   }
 
   section:not(.hero) {
-    border-top: 1px solid #eee;
+    border-top: 1px solid #c0c0c0;
   }
 
   h2 {
