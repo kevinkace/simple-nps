@@ -45,94 +45,19 @@
   </div>
 </section>
 
-<section class="setup">
-  <h2>Minimal Setup</h2>
-
-  <h3>1. Set Google Analytics Account</h3>
-  <pre><code>{`<script>
-window.simpleNpsConfig = {
-  gaId: "G-XXXXXXXXXX",
-};
-</script>`}</code></pre>
-
-  <h3>2. Load from CDN</h3>
-  <pre><code>{`<script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.5/dist/simple-nps.js"></script>`}</code></pre>
-</section>
-
-<section class="customization">
-  <h2>Customization</h2>
-
-  <p>Here are the default options, all overridable:</p>
+<section class="quickstart">
+  <h2>Quick Start</h2>
+  <p>Configure Google Analytics, load one script, and the widget auto-initializes.</p>
 
   <pre><code>{`<script>
-window.simpleNpsConfig = {
-  gaId: "G-XXXXXXXXXX",
-  i18n: {
-    en: {
-      intro: "How likely are you to recommend us to a friend or colleague?",
-      notLikely: "Not at all likely",
-      extremelyLikely: "Extremely likely",
-      submitBtn: "Submit",
+  window.simpleNpsConfig = { gaId: "G-XXXXXXXXXX" };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.5/dist/simple-nps.js"></script>`}</code></pre>
 
-      thankYou: "Thank you for your feedback!",
-
-      followUp: "Could you tell us why?",
-      followUpPlaceholder: "Your feedback helps us improve...",
-      followUpSubmit: "Submit feedback",
-      followUpSkip: "Skip",
-
-      close: "Close"
-    }
-  },
-  language: 'en',
-  theme: {
-    primaryColor: '#007bff',
-    backgroundColor: '#ffffff',
-    textColor: '#333333',
-    borderRadius: '8px'
-  },
-  showFollowUp: true,
-  delay : 1000,
-  thankYouDuration: 1500
-};
-</script>`}</code></pre>
-
-  <h3>Add a Custom Entry Point</h3>
-  <pre><code>{`<div id="simple-nps"></div>`}</code></pre>
-</section>
-
-<section class="analytics">
-  <h2>Google Analytics Events</h2>
-
-  <p>The script automatically tracks these GA4 events:</p>
-
-  <ul>
-    <li><strong>nps_score</strong>: When user submits rating (0-10)</li>
-    <li><strong>nps_feedback</strong>: When user submits follow-up text</li>
-  </ul>
-
-  <p>Scores are automatically categorized:</p>
-
-  <ul>
-    <li><strong>Detractors</strong>: 0-6 (Red)</li>
-    <li><strong>Passives</strong>: 7-8 (Yellow/Orange)</li>
-    <li><strong>Promoters</strong>: 9-10 (Green)</li>
-  </ul>
-</section>
-
-<section class="development">
-  <h2>Development</h2>
-
-  <h3>1. Setup</h3>
-  <pre><code>nvm use
-npm install
-npm run dev</code></pre>
-
-  <h3>2. Build for Production</h3>
-  <pre><code>npm run build</code></pre>
-
-  <p>This generates <code>dist/simple-nps.iife.js</code> - a single file ready for deployment.</p>
-  <p>Host this file on your CDN and load it in your website.</p>
+  <div class="link-row">
+    <a href="/docs" class="text-link">Full configuration and API reference</a>
+    <a href="/demo" class="text-link">Interactive demo</a>
+  </div>
 </section>
 
 <style>
@@ -217,6 +142,24 @@ npm run dev</code></pre>
     color: white;
   }
 
+  .link-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .text-link {
+    color: #0056b3;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+  }
+
+  .text-link:hover {
+    border-bottom-color: #0056b3;
+  }
+
   section {
     padding: 3rem 0;
     max-width: 800px;
@@ -257,16 +200,6 @@ npm run dev</code></pre>
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
     border: 1px solid #e9ecef;
-  }
-
-  ul {
-    margin: 1rem 0;
-    padding-left: 2rem;
-  }
-
-  li {
-    margin-bottom: 0.5rem;
-    color: #444;
   }
 
   p {

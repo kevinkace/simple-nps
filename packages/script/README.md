@@ -2,6 +2,9 @@
 
 A lightweight, configurable Net Promoter Score (NPS) built with Svelte that compiles to a single JavaScript. Data is sent to your own Google Analytics account.
 
+- Monorepo and contributor setup: ../../README.md
+- Public docs and demo: https://simplenps.site
+
 ## Features
 
 - 📦 **Single Script Deployment** - A single JS file with 0 additional dependencies
