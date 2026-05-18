@@ -1,8 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
 
-  const { gtag } = window as any;
-
   const { config : userConfig } = $props();
 
   type FormState = 'pre' | 'form' | 'follow-up' | 'thank-you' | 'done';
@@ -60,8 +58,8 @@
     if (selectedScore === null) return;
 
     // Google Analytics tracking
-    if (config.gaId && gtag) {
-      gtag('event', 'nps_score', {
+    if (config.gaId && window.gtag) {
+      window.gtag('event', 'nps_score', {
         'event_category': 'NPS',
         'event_label': 'Score',
         'value': selectedScore
@@ -79,8 +77,8 @@
    * Submit follow-up feedback to Google Analytics and mark survey as submitted
    */
   function submitFollowUp() {
-    if (config.gaId && gtag && followUpText.trim()) {
-      gtag('event', 'nps_feedback', {
+    if (config.gaId && window.gtag && followUpText.trim()) {
+      window.gtag('event', 'nps_feedback', {
         'event_category': 'NPS',
         'event_label': 'Feedback',
         'custom_parameter': followUpText.substring(0, 100) // Limit feedback length
@@ -104,6 +102,13 @@
   }
 
   // #endregion
+
+  window.nps = {
+    init() {
+      console.log("Initializing NPS survey");
+      formState = "form";
+    }
+  }
 
   // remove after showing thank you message
   $effect(() => {

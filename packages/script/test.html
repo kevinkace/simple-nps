@@ -26,17 +26,7 @@
 
     function showNPS() {
         console.log('Manually reinitializing NPS...');
-        if (typeof window.initSimpleNps !== 'function') {
-            console.error('initSimpleNps is not available on window');
-            return;
-        }
-
-        try {
-            const result = window.initSimpleNps();
-            console.log('NPS reinitialized successfully:', result);
-        } catch (error) {
-            console.error('Error reinitializing NPS:', error);
-        }
+        window.nps?.init();
     }
     </script>
 </body>
