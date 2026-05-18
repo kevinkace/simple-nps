@@ -56,7 +56,7 @@ window.simpleNpsConfig = {
 </script>`}</code></pre>
 
   <h3>2. Load from CDN</h3>
-  <pre><code>{`<script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.2/dist/simple-nps.js"></script>`}</code></pre>
+  <pre><code>{`<script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.5/dist/simple-nps.js"></script>`}</code></pre>
 </section>
 
 <section class="customization">
