@@ -2,8 +2,8 @@
 
 A lightweight, configurable Net Promoter Score (NPS) built with Svelte that compiles to a single JavaScript. Data is sent to your own Google Analytics account.
 
-- Monorepo and contributor setup: ../../README.md
-- Public docs and demo: https://simplenps.site
+- Monorepo and contributor setup: `../../README.md`
+- Public docs and demo: [https://simplenps.site](https://simplenps.site)
 
 ## Features
 
@@ -66,8 +66,9 @@ window.simpleNpsConfig = {
   thankYouDuration: 1500
 };
 </script>
+```
 
-Add a custom entry point.
+Add an optional custom entry point.
 
 ```html
 <div id="simple-nps"></div>
