@@ -16,12 +16,10 @@ A lightweight, configurable Net Promoter Score (NPS) built with Svelte that comp
 
 ## Minimal setup
 
-1. set Google Analytics account  
+1. set config
 ```html
 <script>
-window.simpleNpsConfig = {
-  gaId: "G-XXXXXXXXXX",
-};
+window.simpleNpsConfig = { language : "en", showFollowUp: true };
 </script>
 ```
 2. load from CDN
@@ -36,7 +34,6 @@ Here are the default options, all overridable.
 ```html
 <script>
 window.simpleNpsConfig = {
-  gaId: "G-XXXXXXXXXX",
   i18n: {
     en: {
       intro: "How likely are you to recommend us to a friend or colleague?",

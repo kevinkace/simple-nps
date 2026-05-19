@@ -6,7 +6,6 @@
   type FormState = 'pre' | 'form' | 'follow-up' | 'thank-you' | 'done';
 
   const defaultConfig = {
-    gaId: null,
     i18n: {
       en: {
         intro: "How likely are you to recommend us to a friend or colleague?",
@@ -31,7 +30,7 @@
       textColor: '#333333',
       borderRadius: '8px'
     },
-    showFollowUp: true,
+    showFollowUp: false,
     delay : 1000,
     thankYouDuration: 1500
   };
@@ -51,41 +50,69 @@
     selectedScore = score;
   }
 
+  function trackAnalyticsEvent(eventName: string, parameters: Record<string, string | number | boolean>) {
+    window.dataLayer = window.dataLayer || [];
+
+    if (typeof window.gtag !== 'function') {
+      window.gtag = function() {
+        window.dataLayer.push(arguments);
+      };
+    }
+
+    window.gtag('event', eventName,
+      {
+        content_type: 'nps',
+        event_category: 'engagement',
+        page_location: window.location.href,
+        value : selectedScore,
+        ...parameters
+      }
+    );
+  }
+
   /**
    * Submit NPS score to Google Analytics and show follow-up question if enabled
    */
   function submitScore() {
-    if (selectedScore === null) return;
-
-    // Google Analytics tracking
-    if (config.gaId && window.gtag) {
-      window.gtag('event', 'nps_score', {
-        'event_category': 'NPS',
-        'event_label': 'Score',
-        'value': selectedScore
-      });
+    if (selectedScore === null) {
+      return;
     }
 
-    if (config.showFollowUp) {
-      formState = "follow-up";
-    } else {
-      formState = "thank-you";
-    }
+    trackAnalyticsEvent('nps_score_selected', {
+      score: selectedScore,
+      score_category: getScoreCategory(selectedScore),
+      show_follow_up: config.showFollowUp
+    });
+
+    formState = config.showFollowUp ? "follow-up" : "thank-you";
   }
 
   /**
    * Submit follow-up feedback to Google Analytics and mark survey as submitted
    */
   function submitFollowUp() {
-    if (config.gaId && window.gtag && followUpText.trim()) {
-      window.gtag('event', 'nps_feedback', {
-        'event_category': 'NPS',
-        'event_label': 'Feedback',
-        'custom_parameter': followUpText.substring(0, 100) // Limit feedback length
+    const trimmedFeedback = followUpText.trim().substring(0, 100);
+
+    if (trimmedFeedback) {
+      trackAnalyticsEvent('nps_feedback_submitted', {
+        ...(selectedScore !== null && {
+          score: selectedScore,
+          score_category: getScoreCategory(selectedScore)
+        }),
+        feedback_text: trimmedFeedback
       });
     }
 
     formState = "thank-you";
+  }
+
+  function dismissSurvey() {
+    trackAnalyticsEvent('nps_dismissed', {
+      state: formState,
+      has_score: selectedScore !== null
+    });
+
+    formState = "done";
   }
 
   function skipFollowUp() {
@@ -107,6 +134,8 @@
     init() {
       console.log("Initializing NPS survey");
       formState = "form";
+      selectedScore = null;
+      followUpText = '';
     }
   }
 
@@ -139,7 +168,7 @@
       class="nps-close-btn"
       aria-label={strings.close}
       data-testid="close-btn"
-      onclick={() => formState = "done"}
+      onclick={dismissSurvey}
     >
       &times;
     </button>

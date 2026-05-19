@@ -50,7 +50,7 @@
   <p>Configure Google Analytics, load one script, and the widget auto-initializes.</p>
 
   <pre><code>{`<script>
-  window.simpleNpsConfig = { gaId: "G-XXXXXXXXXX" };
+  window.simpleNpsConfig = { language : "en", showFollowUp: true };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.5/dist/simple-nps.js"></script>`}</code></pre>
 

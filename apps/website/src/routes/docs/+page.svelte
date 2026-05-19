@@ -203,12 +203,6 @@ initSimpleNps();
       </thead>
       <tbody>
         <tr>
-          <td><code>gaId</code></td>
-          <td>string</td>
-          <td><code>null</code></td>
-          <td>Google Analytics 4 Measurement ID</td>
-        </tr>
-        <tr>
           <td><code>i18n</code></td>
           <td>object</td>
           <td>English only</td>
@@ -248,7 +242,6 @@ initSimpleNps();
     <pre><code><script src="https://your-domain.com/packages/script/dist/index.js"></script>
 {`<script>
 window.simpleNpsConfig = {
-  gaId: "${'{{'}GA Measurement ID${'}}'}", // GTM variable
   i18n: {
     en: {
       intro: "How likely are you to recommend us?",
