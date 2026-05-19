@@ -35,10 +35,10 @@ simple-nps/
 - ❌ **Script Package**: Build process broken, dist file may be outdated
 
 ### Project Requirements (Script Package)
-- Single script output with 0 external dependencies  
+- Single script output with 0 external dependencies
 - Configurable via `window.simpleNpsConfig` global variable
 - Svelte + plain CSS (no Tailwind or external frameworks)
-- CSS and strings bundled into single IIFE JS file  
+- CSS and strings bundled into single IIFE JS file
 - Internationalization support
 - Google Analytics integration
 - Auto-initialization when script loads
@@ -46,11 +46,10 @@ simple-nps/
 ### Configuration Example
 ```javascript
 window.simpleNpsConfig = {
-  gaId: "G-XXXXXXXXXX",
   i18n: {
     en: {
       intro: "How likely are you to recommend our service?",
-      notLikely: "Not at all likely", 
+      notLikely: "Not at all likely",
       extremelyLikely: "Extremely likely",
       submitBtn: "Submit",
       thankYou: "Thank you for your feedback!",
@@ -60,7 +59,7 @@ window.simpleNpsConfig = {
   language: "en",
   theme: {
     primaryColor: "#007bff",
-    backgroundColor: "#ffffff", 
+    backgroundColor: "#ffffff",
     textColor: "#333333",
     borderRadius: "8px"
   },
@@ -70,9 +69,9 @@ window.simpleNpsConfig = {
 
 ### Usage
 ```html
-<!-- Configure before loading script -->
+<!-- Optional configure before loading script -->
 <script>
-window.simpleNpsConfig = { gaId: "G-XXXXXXXXXX" };
+window.simpleNpsConfig = { language : "en", showFollowUp: true };
 </script>
 
 <!-- Load the script -->
@@ -94,7 +93,7 @@ npm install     # Install all workspace dependencies
 npm run dev:script      # Dev server for script package
 npm run build:script    # Build script package only
 
-# Website development  
+# Website development
 npm run dev:website     # Dev server for website
 npm run build:website   # Build website only
 
@@ -109,7 +108,7 @@ npm run build          # Build both script and website
 
 ### Migration Issues to Fix
 1. **Node.js Version**: Upgrade to 20.19+ or 22.12+ for compatibility
-2. **Dependencies**: Review Vite and Svelte plugin versions for compatibility  
+2. **Dependencies**: Review Vite and Svelte plugin versions for compatibility
 3. **Build Process**: Ensure IIFE build still generates correctly
 4. **Auto-initialization**: Verify script initializes automatically when loaded
 5. **Testing**: Confirm test.html works with built script
