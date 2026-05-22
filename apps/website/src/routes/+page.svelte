@@ -5,12 +5,21 @@
 
 <section class="hero">
   <h1>Simple NPS</h1>
-  <p>A lightweight, configurable Net Promoter Score (NPS) built with Svelte that compiles to a single JavaScript file. Data is sent to your own Google Analytics account.</p>
+
+  <p>
+    <strong>The simplest Net Promoter Score (NPS).</strong><br>
+    Built with Svelte. Compiles to a single JavaScript file. Data is sent to your own Google Analytics account.
+  </p>
 
   <div class="features">
     <div class="feature">
       <h3>📦 Single Script Deployment</h3>
       <p>A single JS file with 0 additional dependencies</p>
+    </div>
+
+    <div class="feature">
+      <h3>⚡ Lightweight</h3>
+      <p>Minimal footprint, fast loading</p>
     </div>
 
     <div class="feature">
@@ -32,32 +41,91 @@
       <h3>📱 Responsive Design</h3>
       <p>Works on desktop and mobile</p>
     </div>
-
-    <div class="feature">
-      <h3>⚡ Lightweight</h3>
-      <p>Minimal footprint, fast loading</p>
-    </div>
   </div>
 
   <div class="cta">
-    <a href="/demo" class="btn primary">Try Demo</a>
-    <a href="/docs" class="btn secondary">View Documentation</a>
+    <a href="/demo" class="btn primary">Try Demo/playground</a>
   </div>
 </section>
 
 <section class="quickstart">
   <h2>Quick Start</h2>
-  <p>Configure Google Analytics, load one script, and the widget auto-initializes.</p>
+
+  <p>1. set the config</p>
 
   <pre><code>{`<script>
-  window.simpleNpsConfig = { language : "en", showFollowUp: true };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.5/dist/simple-nps.js"></script>`}</code></pre>
+  window.simpleNpsConfig = { gaId : "G-123123123" };
+</script>`}</code></pre>
 
-  <div class="link-row">
-    <a href="/docs" class="text-link">Full configuration and API reference</a>
-    <a href="/demo" class="text-link">Interactive demo</a>
-  </div>
+  <p>2. add the script</p>
+
+  <pre><code>{`<script src="https://cdn.jsdelivr.net/npm/simple-nps@0.0.5/dist/simple-nps.js"></script>`}</code></pre>
+</section>
+
+<section id="customization">
+  <h2>Customization</h2>
+
+  <p>Configure text, colors, and behavior through the global config object.</p>
+
+  <pre><code>{`<script>
+  window.simpleNpsConfig = {
+    storageKey: 'nps_survey_completed',
+    i18n: {
+      en: {
+        intro: "How likely are you to recommend us?",
+        notLikely: "Not likely",
+        extremelyLikely: "Extremely likely",
+        submitBtn: "Submit",
+
+        thankYou: "Thank you for your feedback!",
+
+        followUp: "Could you tell us why?",
+        followUpPlaceholder: "Your feedback helps us improve...",
+        followUpSubmit: "Submit feedback",
+        followUpSkip: "Skip",
+
+        close: "Close"
+      }
+    },
+    language: 'en',
+    theme: {
+      primaryColor: '#007bff',
+      backgroundColor: '#ffffff',
+      textColor: '#333333',
+      borderRadius: '8px'
+    },
+    showFollowUp: false,
+    delay: 1000,
+    thankYouDuration: 1500
+  };
+</script>`}</code></pre>
+
+  <p>Add an optional custom entry point.</p>
+
+  <pre><code>{`<div id="simple-nps"></div>`}</code></pre>
+</section>
+
+<section id="data-collection">
+  <h2>Data Collection</h2>
+
+  <p>Data is sent to your Google Analytics account using the gtag event tracking. Events include:</p>
+
+  <ul>
+    <li><code>nps_score</code>: When user submits rating (0-10)</li>
+    <li><code>nps_feedback</code>: When user submits follow-up text, includes the NPS rating</li>
+    <li><code>nps_dismissed</code>: When user closes the form without submitting feedback</li>
+  </ul>
+
+
+  <p>Scores are automatically categorized:</p>
+
+  <ul>
+    <li><strong>Detractors</strong>: 0-6 (Red)</li>
+    <li><strong>Passives</strong>: 7-8 (Yellow/Orange)</li>
+    <li><strong>Promoters</strong>: 9-10 (Green)</li>
+  </ul>
+
+  <p>You can view the collected data in your Google Analytics dashboard under the "Events" section.</p>
 </section>
 
 <style>
@@ -83,15 +151,12 @@
 
   .features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
   }
 
   .feature {
-    padding: 2rem;
-    border: 1px solid #eee;
-    border-radius: 8px;
     text-align: left;
   }
 

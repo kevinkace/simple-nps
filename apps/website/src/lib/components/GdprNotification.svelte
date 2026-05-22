@@ -34,7 +34,7 @@
         <p>
           We use cookies and analytics tools to improve your experience and analyze our website traffic.
           By clicking "Accept", you consent to the use of cookies and Google Tag Manager for analytics purposes.
-          <a href="/docs#analytics" target="_blank">Learn more</a>
+          <a href="/legal" target="_blank">Learn more</a>
         </p>
       </div>
       <div class="gdpr-buttons">
