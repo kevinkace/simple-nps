@@ -22,10 +22,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: '24.14.0'
         cache: 'npm'
@@ -46,7 +46,7 @@ jobs:
 
     - name: Upload Pages artifact
       if: github.ref == 'refs/heads/main'
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v4
       with:
         path: ./apps/website/build
 
@@ -60,10 +60,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: '24.14.x'
         registry-url: 'https://registry.npmjs.org'
@@ -107,11 +107,6 @@ jobs:
           ## Changes
           - Published simple-nps v${{ steps.check-version.outputs.current-version }} to npm
 
-          ## Installation
-          ```bash
-          npm install simple-nps
-          ```
-
           ## CDN Usage
           ```html
           <script src="https://unpkg.com/simple-nps@${{ steps.check-version.outputs.current-version }}/dist/simple-nps.iife.js"></script>
@@ -131,4 +126,4 @@ jobs:
     steps:
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v4
+      uses: actions/deploy-pages@v5
