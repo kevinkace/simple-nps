@@ -54,6 +54,7 @@
   function addGtagScript() {
     if (config.gaId && !window.gtag) {
       const s = document.createElement('script');
+
       s.src = `https://www.googletagmanager.com/gtag/js?id=${config.gaId}`;
       s.async = true;
       document.head.appendChild(s);
@@ -62,8 +63,7 @@
       window.gtag = function(){ window.dataLayer.push(arguments); };
 
       window.gtag('js', new Date());
-      window.gtag('config', config.gaId,
-      {
+      window.gtag('config', config.gaId, {
         send_page_view: false,
         debug_mode: config.debug || false
       });
@@ -85,7 +85,7 @@
   function handleSubmit() {
     if (selectedScore === null) return;
 
-    track('nps_score_selected', {
+    track('nps_score', {
       score: selectedScore,
       score_category: getScoreCategory(selectedScore),
       has_follow_up: config.showFollowUp
@@ -102,7 +102,7 @@
     const trimmedFeedback = followUpText.trim().substring(0, 100);
 
     if (trimmedFeedback) {
-      track('nps_feedback_submitted', {
+      track('nps_feedback', {
         feedback_text: trimmedFeedback,
         feedback_length: trimmedFeedback.length
       });
@@ -129,8 +129,6 @@
 
     return () => clearTimeout(showTimer);
   });
-
-
 
   window.nps = {
     init() {
