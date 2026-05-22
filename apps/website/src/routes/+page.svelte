@@ -131,7 +131,7 @@
 <style>
   .hero {
     text-align: center;
-    padding: 4rem 0;
+    padding: 2rem 0;
   }
 
   .hero h1 {
@@ -196,37 +196,8 @@
     background-color: #0056b3;
   }
 
-  .btn.secondary {
-    background-color: transparent;
-    color: #007bff;
-    border: 2px solid #007bff;
-  }
-
-  .btn.secondary:hover {
-    background-color: #007bff;
-    color: white;
-  }
-
-  .link-row {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-
-  .text-link {
-    color: #0056b3;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-  }
-
-  .text-link:hover {
-    border-bottom-color: #0056b3;
-  }
-
   section {
-    padding: 3rem 0;
+    padding: 2rem 0;
     max-width: 800px;
     margin: 0 auto;
   }
