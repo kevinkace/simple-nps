@@ -1,12 +1,94 @@
+:root {
+    --color-bg: #1e1e1e;
+    --color-dark: #2C2C2C;
+    --color-text: #E4E4E4;
+    --color-accent-1: #A8DADC;
+    --color-accent-2: #FFC1CC;
+    --color-accent-3: #B39CD0;
+
+    --color-hr: #333;
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 body {
     font-family: system-ui, -apple-system, sans-serif;
     display: flex;
     flex-direction: column;
+}
+
+a {
+    color: var(--color-accent-3);
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    margin-bottom: 2rem;
+}
+
+h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+pre {
+    padding: 1.5rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    background-color: #fff1;
+}
+
+code {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+}
+
+:not(pre) > code {
+    padding: 0.1rem 0.2rem;
+    border-radius: 3px;
+    background-color: #fff1;
+}
+
+p {
+    margin: 1rem 0;
+    line-height: 1.6;
+}
+
+li {
+    margin: 0.5rem 0;
+}
+
+
+.btn {
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+
+    &.primary {
+        background-color: var(--color-accent-3);
+        color: var(--color-bg);
+    }
+
+    &:hover {
+        filter: brightness(1.1);
+    }
 }

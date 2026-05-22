@@ -51,7 +51,11 @@
 
     <ul id="site-nav" class:open={isMenuOpen}>
       {#each navItems as item}
-        <li><a href={item.href} class:active={$page.url.pathname === item.path}>{item.label}</a></li>
+        <li>
+          <a href={item.href} class:active={$page.url.pathname === item.path}>
+            {item.label}
+          </a>
+        </li>
       {/each}
     </ul>
   </nav>
@@ -85,22 +89,24 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-hr);
     margin-bottom: 2rem;
   }
 
   nav h1 {
     margin: 0;
     z-index: 2;
+    font-size: 2.5rem;
+
+    & a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--color-text);
+    }
   }
 
-  nav h1 a {
-    text-decoration: none;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
 
   .logo {
     width: 32px;
@@ -111,9 +117,9 @@
     display: none;
     width: 44px;
     height: 44px;
-    border: 1px solid #ddd;
+    border: none;
     border-radius: 8px;
-    background: #fff;
+    background: #fff3;
     cursor: pointer;
     padding: 0;
     align-items: center;
@@ -126,7 +132,7 @@
   .hamburger span {
     width: 18px;
     height: 2px;
-    background: #333;
+    background: #fff;
     border-radius: 999px;
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
@@ -140,16 +146,11 @@
   }
 
   nav a {
-    text-decoration: none;
-    color: #666;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
     transition: background-color 0.2s;
   }
 
   nav a:hover {
-    background-color: #f0f0f0;
-    color: #333;
   }
 
   @media (max-width: 760px) {
@@ -170,8 +171,8 @@
       flex-direction: column;
       gap: 0.25rem;
       padding: 0.75rem;
-      background: #fff;
-      border: 1px solid #eee;
+      background: var(--color-dark);
+      border: 1px solid var(--color-hr);
       border-radius: 10px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
       z-index: 1;

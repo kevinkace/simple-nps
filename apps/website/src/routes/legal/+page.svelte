@@ -34,35 +34,4 @@
     line-height: 1.6;
   }
 
-  .legal h1 {
-    color: #333;
-    margin-bottom: 2rem;
-  }
-
-  .legal h4 {
-    color: #555;
-    margin: 1.5rem 0 0.5rem 0;
-  }
-
-  .legal p {
-    margin-bottom: 1rem;
-    color: #666;
-  }
-
-  .legal ul {
-    margin: 0.5rem 0 1rem 1.5rem;
-  }
-
-  .legal li {
-    margin-bottom: 0.5rem;
-    color: #666;
-  }
-
-  .legal strong {
-    color: #333;
-  }
-
-  .legal section {
-    margin-bottom: 3rem;
-  }
 </style>

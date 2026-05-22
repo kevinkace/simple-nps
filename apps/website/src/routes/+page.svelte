@@ -137,12 +137,10 @@
   .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #333;
   }
 
   .hero p {
     font-size: 1.2rem;
-    color: #666;
     margin-bottom: 3rem;
     max-width: 600px;
     margin-left: auto;
@@ -162,13 +160,11 @@
 
   .feature h3 {
     margin: 0 0 1rem 0;
-    color: #333;
     font-size: 1.1rem;
   }
 
   .feature p {
     margin: 0;
-    color: #666;
     font-size: 0.9rem;
   }
 
@@ -179,23 +175,6 @@
     flex-wrap: wrap;
   }
 
-  .btn {
-    padding: 1rem 2rem;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: all 0.2s;
-  }
-
-  .btn.primary {
-    background-color: #007bff;
-    color: white;
-  }
-
-  .btn.primary:hover {
-    background-color: #0056b3;
-  }
-
   section {
     padding: 2rem 0;
     max-width: 800px;
@@ -203,44 +182,6 @@
   }
 
   section:not(.hero) {
-    border-top: 1px solid #c0c0c0;
-  }
-
-  h2 {
-    margin-bottom: 2rem;
-    color: #333;
-  }
-
-  h3 {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-
-  pre {
-    background-color: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 6px;
-    overflow-x: auto;
-    border: 1px solid #e9ecef;
-    margin: 1rem 0;
-  }
-
-  code {
-    font-family: 'Monaco', 'Consolas', monospace;
-    font-size: 0.9rem;
-  }
-
-  :not(pre) > code {
-    background-color: #f8f9fa;
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    border: 1px solid #e9ecef;
-  }
-
-  p {
-    margin: 1rem 0;
-    color: #444;
-    line-height: 1.6;
+    border-top: 1px solid var(--color-hr);
   }
 </style>

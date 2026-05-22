@@ -323,7 +323,7 @@
     width: 32px;
     height: 32px;
     border: 2px solid #d1d5db;
-    background: white;
+    background: #eee;
     border-radius: 6px;
     font-size: 14px;
     font-weight: 600;

@@ -1,3 +1,10 @@
+<script>
+
+  function initNps() {
+    window.nps.init();
+  }
+</script>
+
 <svelte:head>
   <title>Demo - Simple NPS</title>
   <meta name="description" content="Interactive demo of Simple NPS" />
@@ -9,7 +16,7 @@
   <h1>Simple NPSDemo</h1>
   <p>Look in the bottom corner.</p>
 
-  <button onclick={() => window.nps.init()} class="btn secondary">
+  <button on:click={initNps} class="btn primary">
     Re-initialize NPS
   </button>
 </div>
@@ -21,14 +28,5 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-  }
-
-  h1 {
-    margin-bottom: 1rem;
-  }
-
-  p {
-    color: #666;
-    margin-bottom: 3rem;
   }
 </style>
