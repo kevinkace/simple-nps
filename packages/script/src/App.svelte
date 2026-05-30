@@ -295,7 +295,7 @@
     &:hover {
       background: var(--primary-color);
       color: white;
-  }
+    }
   }
 
   .nps-content {
